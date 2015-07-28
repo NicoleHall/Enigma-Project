@@ -28,4 +28,4 @@ end
 if __FILE__==$0
   n = KeyGenerator.new
   n.rotation_collector
-endf
+end
