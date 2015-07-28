@@ -14,8 +14,6 @@ class KeyGenerator
     end
   end
 
-
-
   def rotation_collector
     rotation_collection =[]
     @random.each_with_index do |num, index|
@@ -23,12 +21,11 @@ class KeyGenerator
         rotation_collection << [num, random[index + 1]].join
       end
     end
-    rotation_collection
+    rotation_collection.map { |index| index.to_i  }
   end
 end
-
 
 if __FILE__==$0
   n = KeyGenerator.new
   n.rotation_collector
-end
+endf

@@ -32,5 +32,4 @@ class Offset_calcTest < Minitest::Test
     assert_equal 4 , offset_four_digit.format_time_offsets.length
   end
 
-
 end
