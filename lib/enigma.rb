@@ -3,9 +3,9 @@ require_relative "./key_generator"
 require_relative "./offset_calc"
 
 #File IO opens the handle which stores message.txt
-#======
+#==================================================
 #send message to encryptor class  whicc does *lots of work* and RETURNS and encrypted msg
-#======
+#==================================================
 #take nonsense string...FILE IO to the ARGV[1]
 
 class Enigma
