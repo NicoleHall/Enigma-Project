@@ -28,8 +28,3 @@ class KeyGenerator
     rotation_collection.map { |index| index.to_i  }
   end
 end
-
-# if __FILE__==$0         # => true
-#   n = KeyGenerator.new  # => #<KeyGenerator:0x007fd989820180 @random=[2, 5, 5, 5, 5], @rotations={:a=>25, :b=>55, :c=>55, :d=>55}>
-#   n.rotation_collector  # => [25, 55, 55, 55]
-# end                     # => [25, 55, 55, 55]
