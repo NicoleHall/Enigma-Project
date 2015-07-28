@@ -2,7 +2,20 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/key_generator'
 
-class EnigmaTest < Minitest::Test
+class KeyGeneratorTest < Minitest::Test
+
+  def test_it_creates_5_digit_key
+    skip
+    key_generator = KeyGenerator.new(100)
+    assert_equal [8, 8, 3, 7, 7], key_generator.generate
+  end
+
+  def test_it_generates_key_only_once
+    skip
+    key_generator = KeyGenerator.new(100)
+    assert_equal [8, 8, 3, 7, 7], key_generator.generate
+    assert_equal [8, 8, 3, 7, 7], key_generator.generate
+  end
 
   def test_it_has_a_class
     assert key = KeyGenerator.new

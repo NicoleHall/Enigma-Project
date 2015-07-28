@@ -2,9 +2,9 @@ class KeyGenerator
 
   attr_accessor :random, :rotations
 
-  def initialize
-    # @random = randomize_5_digits  # => "12345"
-    @random = randomize_5_digits
+  def initialize(seed = Random.new_seed)
+    @random = randomize_5_digits  # => "12345"
+    # @random_for_testing = Random.new(seed)
     @rotations = [:a, :b, :c, :d].zip(rotation_collector).to_h
   end
 
@@ -12,6 +12,10 @@ class KeyGenerator
     5.times.map do
       1 + rand(9)
     end
+  end
+
+  def generate
+    @key ||= randomize_5_digits
   end
 
   def rotation_collector
@@ -25,7 +29,7 @@ class KeyGenerator
   end
 end
 
-if __FILE__==$0
-  n = KeyGenerator.new
-  n.rotation_collector
-end
+# if __FILE__==$0         # => true
+#   n = KeyGenerator.new  # => #<KeyGenerator:0x007fd989820180 @random=[2, 5, 5, 5, 5], @rotations={:a=>25, :b=>55, :c=>55, :d=>55}>
+#   n.rotation_collector  # => [25, 55, 55, 55]
+# end                     # => [25, 55, 55, 55]

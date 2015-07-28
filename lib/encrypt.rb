@@ -5,8 +5,6 @@ class Encrypt
   attr_accessor :encrypted_msg, :keymap
 
   def initialize
-    n = KeyGenerator.new
-    @rotation_collection = n.rotation_collector
     @encrypted_msg = []
     @keymap = "abcdefghijklmnlopqrstuvwxyz0123456789,. ".chars
   end
@@ -25,7 +23,9 @@ class Encrypt
     new_encrypted_char = (pos_of_char + rotation) % keymap.size
     keymap[new_encrypted_char]
   end
+
 end
+
 
 if __FILE__==$0
   test = Encrypt.new
