@@ -30,5 +30,5 @@ end
 if __FILE__==$0
   test = Encrypt.new
   test_key = KeyGenerator.new
-  test.encrypt_message("I am a Nazi. Lets attack Poland tmrw. kthx bai", test_key.rotation_collector )
+  test.encrypt_message("test test test...Did you notice the pattern?", test_key.rotation_collector )
 end
