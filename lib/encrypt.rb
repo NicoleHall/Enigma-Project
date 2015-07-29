@@ -30,5 +30,6 @@ end
 if __FILE__==$0
   test = Encrypt.new
   test_key = KeyGenerator.new
-  test.encrypt_message("test test test...Did you notice the pattern?", test_key.rotation_collector )
+  #test.encrypt_message('d2v1l',[-77, -67, -53, -22])
+  test.encrypt_message("hello", [93,31,96,52])
 end

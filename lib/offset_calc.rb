@@ -21,6 +21,7 @@ class Offset
     time_digits = time.to_s[-4, 4].chars
   end
 
+
   def get_key
     key.rotation_collector
   end
@@ -35,8 +36,12 @@ class Offset
   def external_offset_calc(ext_key, ext_date)
     pre_key = ext_key.zip(ext_date)
       pre_key.map do |pair|
-        pair.map(&:to_i).reduce(:+)
+        pair.map(&:to_i).reduce(:+) * -1
     end
   end
-  
+
 end
+
+test = Offset.new
+# test.external_offset_calc([24,44,44,44], [1,2,2,5])  # => [-25, -46, -46, -49]
+test.offset_calculator

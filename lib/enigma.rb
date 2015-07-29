@@ -13,8 +13,8 @@ class Enigma
   end
 
   def get_key
-    key = KeyGenerator.new
-    key.randomize_5_digits.join
+    key_runner = Offset.new
+    key_runner.get_key
   end
 
   def get_file
@@ -27,7 +27,7 @@ class Enigma
     encrypt_runner = Encrypt.new
     key_runner = Offset.new
     @encrypted_message = encrypt_runner.encrypt_message(@input, key_runner.offset_calculator)
-    puts "Created '#{ARGV[1]}' with the key #{get_key} and date #{key_runner.time}."
+    puts "Created '#{ARGV[1]}' with the key #{key_runner.get_key} and date #{key_runner.time}. #{key_runner.offset_calculator}"
   end
 
   def output
