@@ -1,15 +1,15 @@
-require_relative './encrypt'        # => true
-require_relative './key_generator'  # => false
-require_relative './offset_calc'    # => true
+require_relative './encrypt'
+require_relative './key_generator'
+require_relative './offset_calc'
 class Decrypt
 
-  attr_accessor :input, :key, :date, :decrypted_message  # => nil
+  attr_accessor :input, :key, :date, :decrypted_message
 
   def initialize(key= ARGV[2])
-    @input = input                          # => nil
-    @key = key                              # => [12345]
-    @date = date                            # => nil
-    @decrypted_message = decrypted_message  # => nil
+    get_file
+    @key = format_the_key(ARGV[2])
+    @date = format_date(ARGV[3].to_i)
+    @decrypted_message = decrypted_message
   end
 
   def get_file #from msg.txt
@@ -23,15 +23,11 @@ class Decrypt
     writer.write(@decrypted_message)
   end
 
-  def get_key
-    @key = ARGV[2]  # => nil
-  end
-
-  def format_the_key
-    if @key.length != 5  # ~> NoMethodError: undefined method `length' for nil:NilClass
+  def format_the_key(key)
+    if key.length != 5
       "Please enter a valid key"
     else
-      @key = @key.chars.map do |i|
+      @key = key.chars.map do |i|
         i.to_i
       end
     end
@@ -48,23 +44,21 @@ class Decrypt
     end
   end
 
-  def get_date
-    @date = ARGV[3].to_i
-  end
-
-  def format_date
-    @date = @date * @date
-    @date = @date.to_s[-4,4].chars.map { |i| i.to_i }
+  def format_date(date)
+    @date = date * date
+    @date = date.to_s[-4,4].chars.map { |i| i.to_i }
   end
 
   def make_final_key
+    turn_key_to_paired_key
     offset_runner = Offset.new
-    @key = offset_runner.external_offset_calc(@key, @date)
+    @key = offset_runner.external_offset_calc(key, date)
   end
 
   def output
     writer = File.open(ARGV[1], "w")
     writer.write(@decrypted_message)
+    writer.close
   end
 
   def decrypt
@@ -73,29 +67,14 @@ class Decrypt
     puts "Created '#{ARGV[1]}' with the key #{ARGV[2]} and date #{ARGV[3]}"
   end
 
-  def summary
-    p @input
-    p @decrypted_message
+  def final_run
+    make_final_key
+    decrypt
+    output
   end
-
 end
 
-
-if __FILE__==$0                           # => true
-  decrypt_runner = Decrypt.new([12345])   # => #<Decrypt:0x007fc351839778 @input=nil, @key=[12345], @date=nil, @decrypted_message=nil>
-  # decrypt_runner.get_file
- decrypt_runner.get_key                   # => nil
-p decrypt_runner.format_the_key
-p  decrypt_runner.turn_key_to_paired_key
-  decrypt_runner.get_date
-  decrypt_runner.format_date
-  # decrypt_runner.make_final_key
-  # decrypt_runner.decrypt
-  # decrypt_runner.output
+if __FILE__==$0
+  decrypt_runner = Decrypt.new([12345])
+  decrypt_runner.final_run
 end
-
-# ~> NoMethodError
-# ~> undefined method `length' for nil:NilClass
-# ~>
-# ~> /Users/adamki/Turing/module1/week_3/enigma2/lib/decrypt.rb:31:in `format_the_key'
-# ~> /Users/adamki/Turing/module1/week_3/enigma2/lib/decrypt.rb:88:in `<main>'

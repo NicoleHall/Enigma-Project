@@ -33,4 +33,5 @@ class KeyGeneratorTest < Minitest::Test
       assert n.rotations[key]
     end
   end
+  
 end
