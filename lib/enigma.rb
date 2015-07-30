@@ -1,25 +1,25 @@
-require_relative "./time"           # => true
-require_relative "./key_generator"  # => true
-require_relative "./offset_calc"    # => true
-require_relative "./encrypt"        # => true
+require_relative "./time"
+require_relative "./key_generator"
+require_relative "./offset_calc"
+require_relative "./encrypt"
 
 class Enigma
 
-  attr_accessor :encrypted_message, :input  # => nil
+  attr_accessor :encrypted_message, :input
 
   def initialize
-    @input = input                          # => nil
-    @encrypted_message = encrypted_message  # => nil
+    @input = input
+    @encrypted_message = encrypted_message
   end
 
   def get_key
-    offset_runner = Offset.new         # => #<Offset:0x007ff06b878b98 @time=290715, @key=#<KeyGenerator:0x007ff06b878a08 @random=[6, 3, 1, 5, 2], @rotations={:a=>63, :b=>31, :c=>15, :d=>52}>>
-    formatted = offset_runner.get_key  # => [63, 31, 15, 52]
+    offset_runner = Offset.new
+    formatted = offset_runner.get_key
 
   end
 
   def get_file
-    handle = File.open(ARGV[0], "r")  # ~> TypeError: no implicit conversion of nil into String
+    handle = File.open(ARGV[0], "r")
     @input = handle.read.chomp
     handle.close
   end
@@ -39,18 +39,10 @@ class Enigma
 end
 
 
-if __FILE__==$0      # => true
-  test = Enigma.new  # => #<Enigma:0x007ff06b878f08 @input=nil, @encrypted_message=nil>
-  test.get_key       # => [63, 31, 15, 52]
+if __FILE__==$0
+  test = Enigma.new
+  test.get_key
   test.get_file
   test.run_encrypt
   test.output
 end
-
-# ~> TypeError
-# ~> no implicit conversion of nil into String
-# ~>
-# ~> /Users/adamki/Turing/module1/week_3/enigma2/lib/enigma.rb:22:in `initialize'
-# ~> /Users/adamki/Turing/module1/week_3/enigma2/lib/enigma.rb:22:in `open'
-# ~> /Users/adamki/Turing/module1/week_3/enigma2/lib/enigma.rb:22:in `get_file'
-# ~> /Users/adamki/Turing/module1/week_3/enigma2/lib/enigma.rb:45:in `<main>'
